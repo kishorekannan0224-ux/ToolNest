@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to JPG Converter | ToolNest</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #39206d, transparent 40%),
+        #0B1020;
+      color: white;
+      padding: 25px;
+    }
+
+    header {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #A78BFA;
+      font-size: 27px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    header a.back {
+      color: #AAB4D0;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 65px auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 45px);
+      margin-bottom: 15px;
+    }
+
+    h1 span {
+      color: #A78BFA;
+    }
+
+    .description {
+      color: #AAB4D0;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .upload-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(167,139,250,0.35);
+      border-radius: 20px;
+      padding: 40px 20px;
+      backdrop-filter: blur(15px);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .upload-box h2 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .upload-box p {
+      color: #AAB4D0;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .choose-btn, .action-btn {
+      display: inline-block;
+      border: none;
+      background: linear-gradient(135deg, #8B5CF6, #38BDF8);
+      color: white;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .choose-btn:hover, .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px #8b5cf655;
+    }
+
+    .file-name {
+      margin-top: 18px;
+      color: #AAB4D0;
+      overflow-wrap: anywhere;
+    }
+
+    .action-btn {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #status {
+      margin-top: 20px;
+      color: #AAB4D0;
+      line-height: 1.6;
+    }
+
+    .results {
+      margin-top: 45px;
+      text-align: left;
+    }
+
+    .results h2 {
+      margin-bottom: 20px;
+    }
+
+    .result-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(167,139,250,0.2);
+      padding: 15px;
+      border-radius: 13px;
+      margin-bottom: 12px;
+    }
+
+    .result-card img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      background: white;
+      border-radius: 7px;
+    }
+
+    .result-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .result-info p {
+      color: #AAB4D0;
+      margin-top: 7px;
+      font-size: 13px;
+    }
+
+    .download-btn {
+      border: 1px solid #A78BFA;
+      background: transparent;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background: #8B5CF6;
+    }
+
+    .download-all {
+      display: none;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      color: #78829f;
+      margin-top: 70px;
+      font-size: 13px;
+    }
+
+    @media(max-width: 550px) {
+      body {
+        padding: 17px;
+      }
+
+      main {
+        margin-top: 45px;
+      }
+
+      .upload-box {
+        padding: 30px 15px;
+      }
+
+      .result-card {
+        flex-wrap: wrap;
+      }
+
+      .download-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="../index.html" class="logo">ToolNest.</a>
+    <a href="../index.html" class="back">← Back to Home</a>
+  </header>
+
+  <main>
+    <h1>PDF to <span>JPG</span> Converter</h1>
+
+    <p class="description">
+      Convert every page of your PDF into high-quality JPG images.
+      Preview and download your converted images easily.
+    </p>
+
+    <section class="upload-box">
+      <div class="upload-icon">📄</div>
+
+      <h2>Upload your PDF file</h2>
+      <p>Select a PDF file from your device.</p>
+
+      <label for="pdfFile" class="choose-btn">
+        Choose PDF File
+      </label>
+
+      <input type="file" id="pdfFile" accept=".pdf,application/pdf">
+
+      <div class="file-name" id="fileName">
+        No file selected
+      </div>
+
+      <button class="action-btn" id="convertBtn">
+        Convert to JPG
+      </button>
+
+      <p id="status" aria-live="polite"></p>
+    </section>
+
+    <section class="results" id="results" hidden>
+      <h2>Converted Images</h2>
+      <div id="imageList"></div>
+
+      <button class="action-btn download-all" id="downloadAll">
+        Download All Images (ZIP)
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 ToolNest. All rights reserved.
+  </footer>
+
+  <!-- ZIP library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script type="module">
+    import * as pdfjsLib from
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs";
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs";
+
+    const pdfFile = document.getElementById("pdfFile");
+    const fileName = document.getElementById("fileName");
+    const convertBtn = document.getElementById("convertBtn");
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
+    const imageList = document.getElementById("imageList");
+    const downloadAll = document.getElementById("downloadAll");
+
+    let selectedFile = null;
+    let convertedImages = [];
+
+    pdfFile.addEventListener("change", () => {
+      selectedFile = pdfFile.files[0];
+
+      convertedImages = [];
+      imageList.innerHTML = "";
+      results.hidden = true;
+      downloadAll.style.display = "none";
+      status.textContent = "";
+
+      if (!selectedFile) {
+        fileName.textContent = "No file selected";
+        convertBtn.style.display = "none";
+        return;
+      }
+
+      if (
+        selectedFile.type !== "application/pdf" &&
+        !selectedFile.name.toLowerCase().endsWith(".pdf")
+      ) {
+        fileName.textContent = "Please select a PDF file.";
+        convertBtn.style.display = "none";
+        selectedFile = null;
+        return;
+      }
+
+      if (selectedFile.size > 25 * 1024 * 1024) {
+        fileName.textContent = "File is too large. Maximum size is 25 MB.";
+        convertBtn.style.display = "none";
+        selectedFile = null;
+        return;
+      }
+
+      fileName.textContent =
+        selectedFile.name + " (" +
+        (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB)";
+
+      convertBtn.style.display = "inline-block";
+    });
+
+    convertBtn.addEventListener("click", async () => {
+      if (!selectedFile) return;
+
+      convertBtn.disabled = true;
+      convertBtn.textContent = "Converting...";
+      status.textContent = "Preparing your PDF...";
+      imageList.innerHTML = "";
+      convertedImages = [];
+      results.hidden = true;
+      downloadAll.style.display = "none";
+
+      try {
+        const arrayBuffer = await selectedFile.arrayBuffer();
+
+        const pdf = await pdfjsLib.getDocument({
+          data: new Uint8Array(arrayBuffer)
+        }).promise;
+
+        const zip = new JSZip();
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          status.textContent =
+            `Converting page ${pageNumber} of ${pdf.numPages}...`;
+
+          const page = await pdf.getPage(pageNumber);
+          const viewport = page.getViewport({ scale: 1.5 });
+
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+
+          canvas.width = Math.ceil(viewport.width);
+          canvas.height = Math.ceil(viewport.height);
+
+          await page.render({
+            canvasContext: context,
+            viewport: viewport
+          }).promise;
+
+          const blob = await new Promise((resolve, reject) => {
+            canvas.toBlob(
+              result => result ? resolve(result) : reject(
+                new Error("Could not create JPG image.")
+              ),
+              "image/jpeg",
+              0.92
+            );
+          });
+
+          const imageName = `page-${pageNumber}.jpg`;
+
+          convertedImages.push({
+            name: imageName,
+            blob: blob
+          });
+
+          zip.file(imageName, blob);
+
+          const imageURL = URL.createObjectURL(blob);
+
+          const card = document.createElement("div");
+          card.className = "result-card";
+
+          const preview = document.createElement("img");
+          preview.src = imageURL;
+          preview.alt = `Converted page ${pageNumber}`;
+
+          const info = document.createElement("div");
+          info.className = "result-info";
+
+          const title = document.createElement("strong");
+          title.textContent = `Page ${pageNumber}`;
+
+          const detail = document.createElement("p");
+          detail.textContent = imageName;
+
+          info.append(title, detail);
+
+          const downloadBtn = document.createElement("button");
+          downloadBtn.className = "download-btn";
+          downloadBtn.textContent = "Download JPG";
+
+          downloadBtn.addEventListener("click", () => {
+            downloadBlob(blob, imageName);
+          });
+
+          card.append(preview, info, downloadBtn);
+          imageList.appendChild(card);
+        }
+
+        results.hidden = false;
+        downloadAll.style.display = "inline-block";
+
+        status.textContent =
+          `Successfully converted ${pdf.numPages} page(s)!`;
+
+        downloadAll.onclick = async () => {
+          downloadAll.disabled = true;
+          downloadAll.textContent = "Preparing ZIP...";
+
+          try {
+            const zipBlob = await zip.generateAsync({
+              type: "blob"
+            });
+
+            downloadBlob(zipBlob, "ToolNest-Converted-Images.zip");
+          } catch (error) {
+            status.textContent = "Could not create ZIP. Please try again.";
+          } finally {
+            downloadAll.disabled = false;
+            downloadAll.textContent = "Download All Images (ZIP)";
+          }
+        };
+
+      } catch (error) {
+        console.error(error);
+        status.textContent =
+          "Conversion failed. Please check your PDF and try again.";
+      } finally {
+        convertBtn.disabled = false;
+        convertBtn.textContent = "Convert to JPG";
+      }
+    });
+
+    function downloadBlob(blob, name) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = name;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }
+  </script>
+
+</body>
+</html>

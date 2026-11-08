@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Create and download QR codes for text and website links with ToolNest.">
+<title>QR Code Generator | ToolNest</title>
+
+<style>
+:root {
+    --bg: #0B1020;
+    --card: #171B35;
+    --accent: #A78BFA;
+    --blue: #38BDF8;
+    --text: #FFFFFF;
+    --muted: #AAB4D0;
+    --border: rgba(255,255,255,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 25px 6%;
+    color: var(--text);
+    background: radial-gradient(circle at top, #25204D, var(--bg) 55%);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 55px;
+}
+
+.logo {
+    color: var(--accent);
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.heading h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    margin-bottom: 12px;
+}
+
+.heading h1 span {
+    color: var(--accent);
+}
+
+.heading p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.main-card {
+    background: rgba(23,27,53,0.9);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 130px;
+    padding: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--accent);
+}
+
+textarea::placeholder {
+    color: #78829F;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 9px;
+    line-height: 1.5;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.generate-btn {
+    color: #0B1020;
+    background: linear-gradient(100deg, var(--accent), var(--blue));
+}
+
+.clear-btn {
+    color: white;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
+}
+
+.result {
+    display: none;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.result h2 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.result p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.qr-box {
+    width: fit-content;
+    max-width: 100%;
+    margin: 22px auto;
+    padding: 18px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 250px;
+    min-height: 250px;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+#qrcode img,
+#qrcode canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.download-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 25px;
+    background: #22C55E;
+    color: #071B10;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+    transition: 0.3s;
+}
+
+.download-btn:hover {
+    background: #4ADE80;
+}
+
+.status {
+    color: var(--muted);
+    text-align: center;
+    margin-top: 17px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 50px;
+    line-height: 1.8;
+}
+
+footer span {
+    color: var(--accent);
+}
+
+@media(max-width: 600px) {
+    body {
+        padding: 20px 5%;
+    }
+
+    header {
+        margin-bottom: 35px;
+    }
+
+    .main-card {
+        padding: 18px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="../index.html" class="logo">ToolNest.</a>
+    <a href="../index.html" class="back-link">← Back to Home</a>
+</header>
+
+<main class="container">
+
+    <section class="heading">
+        <h1>QR Code <span>Generator</span></h1>
+        <p>Turn your text or website link into a scannable QR code.</p>
+    </section>
+
+    <section class="main-card">
+
+        <label for="qrText">Enter Text or Website URL</label>
+
+        <textarea
+            id="qrText"
+            placeholder="Example: https://example.com or Enter your text..."
+            maxlength="2000"
+        ></textarea>
+
+        <p class="hint">
+            Maximum 2,000 characters. You can enter a website link,
+            plain text or other information.
+        </p>
+
+        <div class="buttons">
+            <button class="generate-btn" id="generateBtn">
+                Generate QR Code
+            </button>
+
+            <button class="clear-btn" id="clearBtn">
+                Clear
+            </button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite">
+            Enter your text to create a QR code.
+        </p>
+
+        <section class="result" id="result">
+
+            <h2>Your QR Code</h2>
+            <p>Scan this code using your phone camera or QR scanner.</p>
+
+            <div class="qr-box">
+                <div id="qrcode"></div>
+            </div>
+
+            <a
+                href="#"
+                class="download-btn"
+                id="downloadBtn"
+                download="toolnest-qr-code.png"
+            >
+                Download QR Code PNG
+            </a>
+
+        </section>
+
+    </section>
+
+</main>
+
+<footer>
+    © 2026 ToolNest. All rights reserved.<br>
+    A Product by <span>DeltaCode</span>
+</footer>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+const qrText = document.getElementById("qrText");
+const generateBtn = document.getElementById("generateBtn");
+const clearBtn = document.getElementById("clearBtn");
+const statusText = document.getElementById("status");
+const result = document.getElementById("result");
+const qrContainer = document.getElementById("qrcode");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let qrObject = null;
+
+function generateQRCode() {
+    const text = qrText.value.trim();
+
+    if (!text) {
+        statusText.textContent = "Please enter some text or a website URL.";
+        qrText.focus();
+        return;
+    }
+
+    if (text.length > 2000) {
+        statusText.textContent = "Text is too long. Maximum 2,000 characters.";
+        return;
+    }
+
+    if (typeof QRCode === "undefined") {
+        statusText.textContent =
+            "QR library could not load. Check your internet connection and refresh.";
+        return;
+    }
+
+    try {
+        qrContainer.innerHTML = "";
+        result.style.display = "none";
+
+        qrObject = new QRCode(qrContainer, {
+            text: text,
+            width: 250,
+            height: 250,
+            colorDark: "#000000",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        result.style.display = "block";
+        statusText.textContent = "QR code generated successfully!";
+
+        setTimeout(() => {
+            const canvas = qrContainer.querySelector("canvas");
+            const image = qrContainer.querySelector("img");
+
+            if (canvas) {
+                downloadBtn.href = canvas.toDataURL("image/png");
+            } else if (image && image.complete) {
+                downloadBtn.href = image.src;
+            } else if (image) {
+                image.onload = () => {
+                    downloadBtn.href = image.src;
+                };
+            }
+        }, 100);
+
+    } catch (error) {
+        result.style.display = "none";
+        statusText.textContent =
+            "Could not generate the QR code. Please try again.";
+    }
+}
+
+generateBtn.addEventListener("click", generateQRCode);
+
+qrText.addEventListener("keydown", event => {
+    if (event.ctrlKey && event.key === "Enter") {
+        generateQRCode();
+    }
+});
+
+clearBtn.addEventListener("click", () => {
+    qrText.value = "";
+    qrContainer.innerHTML = "";
+    result.style.display = "none";
+    downloadBtn.removeAttribute("href");
+    statusText.textContent = "Text cleared. Enter new text to continue.";
+    qrText.focus();
+});
+</script>
+
+</body>
+</html>
