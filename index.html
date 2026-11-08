@@ -683,10 +683,42 @@ footer span { color: var(--accent); }
 
 <!-- FOOTER -->
 
-<footer>
-    © 2026 ToolNest. All rights reserved.<br>
-    A Product by <span>DeltaCode</span>
+<footer class="footer">
+    <p>© 2026 ToolNest. All rights reserved.</p>
+    <p>A Product by DeltaCode</p>
+
+    <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
 </footer>
+
+<style>
+.footer {
+    text-align: center;
+    padding: 30px 15px;
+    color: #AAB4D0;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 18px;
+}
+
+.footer-links a {
+    color: #A78BFA;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #38BDF8;
+}
+</style>
 
 <!-- SEARCH AND FILTER SCRIPT -->
 

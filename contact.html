@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact ToolNest by DeltaCode for questions, feedback and support.">
+<title>Contact Us | ToolNest</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top right,#292052,transparent 40%),#0B1020;
+    color: white;
+    padding: 20px;
+}
+
+nav {
+    max-width: 1000px;
+    margin: auto;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #A78BFA;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav a:last-child {
+    color: #AAB4D0;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 650px;
+    margin: 55px auto;
+    padding: 35px;
+    background: rgba(23,27,53,.88);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 20px;
+}
+
+h1 {
+    color: #A78BFA;
+    margin-bottom: 12px;
+    font-size: 32px;
+}
+
+p {
+    color: #AAB4D0;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    color: #AAB4D0;
+    margin: 16px 0 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(255,255,255,.05);
+    color: white;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    border-color: #A78BFA;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #A78BFA;
+    color: #0B1020;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #BCA7FF;
+}
+
+.note {
+    font-size: 12px;
+    margin-top: 14px;
+    margin-bottom: 0;
+}
+
+footer {
+    text-align: center;
+    color: #AAB4D0;
+    font-size: 13px;
+    padding: 25px;
+}
+
+footer span {
+    color: #A78BFA;
+}
+
+@media(max-width:600px) {
+    .container { padding: 25px 20px; margin: 35px auto; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html" class="logo">ToolNest.</a>
+    <a href="index.html">← Home</a>
+</nav>
+
+<main class="container">
+
+    <h1>Contact Us</h1>
+
+    <p>
+        Have a question, suggestion or feedback?
+        Send us a message. We would be glad to hear from you.
+    </p>
+
+    <form id="contactForm">
+
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="message">Your Message</label>
+        <textarea id="message" placeholder="Write your message..." required></textarea>
+
+        <button type="submit">Send Message</button>
+
+    </form>
+
+    <p class="note">
+        This form opens your email application to send the message.
+    </p>
+
+</main>
+
+<footer>
+    © 2026 ToolNest. A Product by <span>DeltaCode</span>
+</footer>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    // Replace this placeholder with your actual support email.
+    const supportEmail = "YOUR_EMAIL@example.com";
+
+    if (supportEmail === "YOUR_EMAIL@example.com") {
+        alert("Please add your real support email in the contact page code first.");
+        return;
+    }
+
+    const subject = encodeURIComponent("ToolNest Contact Message");
+    const body = encodeURIComponent(
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n\n" +
+        "Message:\n" + message
+    );
+
+    window.location.href =
+        "mailto:" + supportEmail +
+        "?subject=" + subject +
+        "&body=" + body;
+});
+</script>
+
+</body>
+</html>
